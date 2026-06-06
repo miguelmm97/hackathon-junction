@@ -21,7 +21,7 @@ echo "Task table: $tasks_path"
 echo "Account: $LUMI_ACCOUNT"
 echo "Partition: $LUMI_PARTITION"
 
-array_job=$(sbatch --parsable "${SBATCH_ARGS[@]}" --array=0-"$last_task" "matthias/problem 35/problem35_window_scan.sbatch")
+array_job=$(sbatch --parsable "${SBATCH_ARGS[@]}" --array=0-"$last_task"%20 "matthias/problem 35/problem35_window_scan.sbatch")
 echo "Array job: $array_job"
 
 merge_job=$(sbatch --parsable "${SBATCH_ARGS[@]}" --dependency=afterok:"$array_job" "matthias/problem 35/problem35_merge.sbatch")

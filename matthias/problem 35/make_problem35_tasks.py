@@ -37,7 +37,7 @@ WINDOW_SIZES = [
 STRIDE = 1
 MAX_BOND = 128
 CUTOFF = 1e-4
-CUTS_PER_ARRAY_TASK = 128
+CUTS_PER_ARRAY_TASK = 1024
 
 OUTPUT_DIR = Path(__file__).resolve().parent / "identity_window_slurm"
 TASKS_PATH = OUTPUT_DIR / "tasks.csv"
