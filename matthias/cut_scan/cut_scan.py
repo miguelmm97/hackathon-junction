@@ -553,34 +553,47 @@ def plot_identity_window_scan(records, output_dir):
     output_dir = Path(output_dir)
     window_size = int(records[0]["window_size"])
     swap_flag = int(bool(records[0]["run_swap_optimization"]))
+    layer_indices = [row["cut_index"] for row in records]
+    overlaps = [row["identity_overlap"] for row in records]
+    distances = [row["identity_distance"] for row in records]
 
-    plt.figure(figsize=(7, 4), dpi=180)
-    plt.plot(
-        [row["qasm_line"] for row in records],
-        [row["identity_overlap"] for row in records],
-        marker=".",
-        linewidth=1.2,
-    )
-    plt.title(f"W={window_size}, S={swap_flag}")
-    plt.xlabel("QASM line at cut")
-    plt.ylabel("identity overlap")
-    plt.tight_layout()
-    plt.savefig(output_dir / f"identity_window_overlap_W{window_size}_S{swap_flag}.png")
-    plt.close()
+    plt.rcParams.update({"text.usetex": True})
 
-    plt.figure(figsize=(7, 4), dpi=180)
-    plt.plot(
-        [row["qasm_line"] for row in records],
-        [row["identity_distance"] for row in records],
-        marker=".",
-        linewidth=1.2,
+    fig, ax = plt.subplots(figsize=(4, 4), dpi=180)
+    ax.plot(layer_indices, overlaps, color="#005f63", linewidth=1.8)
+    ax.set_xlabel(r"Layer index $i$")
+    ax.set_ylabel(r"$\mathrm{Tr}(\mathrm{MPO}_W)$")
+    ax.set_xlim(min(layer_indices), max(layer_indices))
+    ax.margins(x=0)
+    ax.text(
+        0.03,
+        0.93,
+        r"$W=%d$" % window_size,
+        transform=ax.transAxes,
+        ha="left",
+        va="top",
     )
-    plt.title(f"W={window_size}, S={swap_flag}")
-    plt.xlabel("QASM line at cut")
-    plt.ylabel("1 - identity overlap")
+    fig.tight_layout()
+    fig.savefig(output_dir / f"identity_window_overlap_W{window_size}_S{swap_flag}.png")
+    plt.close(fig)
+
+    fig, ax = plt.subplots(figsize=(4, 4), dpi=180)
+    ax.plot(layer_indices, distances, color="#005f63", linewidth=1.8)
+    ax.set_xlabel(r"Layer index $i$")
+    ax.set_ylabel(r"$1 - \mathrm{Tr}(\mathrm{MPO}_W)$")
+    ax.set_xlim(min(layer_indices), max(layer_indices))
+    ax.margins(x=0)
+    ax.text(
+        0.03,
+        0.93,
+        r"$W=%d$" % window_size,
+        transform=ax.transAxes,
+        ha="left",
+        va="top",
+    )
     plt.tight_layout()
-    plt.savefig(output_dir / f"identity_window_distance_W{window_size}_S{swap_flag}.png")
-    plt.close()
+    fig.savefig(output_dir / f"identity_window_distance_W{window_size}_S{swap_flag}.png")
+    plt.close(fig)
 
 
 def run_identity_window_scan(

@@ -8,9 +8,9 @@ from matthias.cut_scan import run_identity_window_scan
 if __name__ == "__main__":
     run_identity_window_scan(
         problem_number=3,
-        stride=5,
-        window_size=40,
-        max_bond=32,
+        stride=1,
+        window_size=23,
+        max_bond=64,
         cutoff=1e-4,
         norm="trace_overlap",
         run_swap_optimization=False,

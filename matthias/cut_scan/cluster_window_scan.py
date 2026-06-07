@@ -16,7 +16,6 @@ from .cut_scan import (
     write_records_csv,
 )
 
-
 def split_into_batches(items, batch_size):
     return [items[index : index + batch_size] for index in range(0, len(items), batch_size)]
 

@@ -8,6 +8,12 @@ TOP_K = 10
 qc = QuantumCircuit.from_qasm_file(QASM_PATH)
 qc_no_meas = qc.remove_final_measurements(inplace=False)
 
+plt.figure(figsize=(8, 4))
+qc.draw(output='mpl', fold=0)
+plt.savefig("qc.png", dpi=300)
+plt.show()
+##
+
 sv = Statevector.from_instruction(qc_no_meas)
 probs = sv.probabilities_dict()
 ranked = sorted(probs.items(), key=lambda item: item[1], reverse=True)

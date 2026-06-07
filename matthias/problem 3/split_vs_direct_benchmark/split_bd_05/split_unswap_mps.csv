@@ -1,0 +1,4 @@
+max_bond,max_links,num_tensors,part_index,runtime_seconds,total_elems,total_links,total_shapes
+5,3,24,1,0.13044304214417934,710,70,214
+5,3,24,2,0.9818030828610063,806,70,234
+5,3,24,3,0.14107825001701713,986,70,260

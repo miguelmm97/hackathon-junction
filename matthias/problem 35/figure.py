@@ -44,7 +44,7 @@ def make_window_plots(
         plt.title(f"Window size = {window_size}")
         plt.tight_layout()
 
-        outpath = output_dir / f"window_{int(window_size):03d}.png"
+        outpath = output_dir / f"window_compressed_{int(window_size):03d}.png"
         plt.savefig(outpath, dpi=200)
         plt.close()
 
